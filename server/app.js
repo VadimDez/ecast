@@ -41,32 +41,22 @@ io.on('connection', function(socket) {
   });
 
   socket.on('disconnect', function() {
-    console.log('disconnect:', socket.roomKey)
+    console.log('disconnect:', socket.roomKey);
     if (socket.roomKey) {
-      delete rooms[socket.roomKey]
+      delete rooms[socket.roomKey];
+      io.sockets.emit('room-closed', { room: roomKey });
     }
   });
 
   socket.on('join_room', function(roomKey) {
-    console.log('join room:', roomKey)
+    console.log('join room:', roomKey);
     socket.join(roomKey)
-  })
-
-  socket.on('upvote', function(roomKey) {
-    console.log('upvote:', roomKey)
-    io.to(roomKey).emit('upvote')
-  })
-
-  socket.on('gift', function(data) {
-    console.log('gift:', data)
-    io.to(data.roomKey).emit('gift', data)
-  })
+  });
 
   socket.on('comment', function(data) {
     console.log('comment:', data)
     io.to(data.roomKey).emit('comment', data)
-  })
-
-})
+  });
+});
 
 console.log('listening on port 3000...')
