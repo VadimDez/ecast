@@ -134,7 +134,7 @@ function zerofy(number) {
 }
 
 function onStreamStart(room) {
-  db.run('INSERT INTO rooms(key, title, radius, country, fillKey, date, latitude, longitude, isLive) VALUES ($key, $title, $radius, $country, $fillKey, $date, $latitude, $longitude, $isLive)', {
+  db.run('INSERT OR REPLACE INTO rooms(key, title, radius, country, fillKey, date, latitude, longitude, isLive) VALUES ($key, $title, $radius, $country, $fillKey, $date, $latitude, $longitude, $isLive)', {
     $key: room.key,
     $title: room.title,
     $radius: room.radius,
