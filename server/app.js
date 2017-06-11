@@ -47,17 +47,7 @@ io.on('connection', function(socket) {
     var roomKey = room.key;
     rooms[roomKey] = room;
 
-    db.run('INSERT INTO rooms(key, title, radius, country, fillKey, date, latitude, longitude, isLive) VALUES ($key, $title, $radius, $country, $fillKey, $date, $latitude, $longitude, $isLive)', {
-      $key: room.key,
-      $title: room.title,
-      $radius: room.radius,
-      $country: room.country,
-      $fillKey: room.fillKey,
-      $date: room.date,
-      $latitude: room.latitude,
-      $longitude: room.longitude,
-      $isLive: 1
-    });
+    onStreamStart(room);
 
     socket.roomKey = roomKey;
     socket.join(roomKey);
@@ -97,4 +87,18 @@ console.log('listening on port ' + PORT + '...');
 
 function onStremStop(key) {
   db.run("UPDATE rooms SET isLive = ? WHERE key = ?", [ 0, key ]);
+}
+
+function onStreamStart(room) {
+  db.run('INSERT INTO rooms(key, title, radius, country, fillKey, date, latitude, longitude, isLive) VALUES ($key, $title, $radius, $country, $fillKey, $date, $latitude, $longitude, $isLive)', {
+    $key: room.key,
+    $title: room.title,
+    $radius: room.radius,
+    $country: room.country,
+    $fillKey: room.fillKey,
+    $date: room.date,
+    $latitude: room.latitude,
+    $longitude: room.longitude,
+    $isLive: 1
+  });
 }
