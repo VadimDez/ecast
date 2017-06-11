@@ -123,7 +123,7 @@
         $('#myModal').modal('toggle');
         console.log(element.name);
     });
-    $('.videolist-entry').click(function() {
+    $('body').click(".videolist-entry",function() {
       $('.videoplayer').slideUp(function() {
         $('.videoplayer').slideDown(500,"swing");
       });
