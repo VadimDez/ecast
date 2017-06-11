@@ -44,7 +44,7 @@ io.on('connection', function(socket) {
     console.log('disconnect:', socket.roomKey);
     if (socket.roomKey) {
       delete rooms[socket.roomKey];
-      io.sockets.emit('room-closed', { room: roomKey });
+      io.sockets.emit('room-closed', { room: socket.roomKey });
     }
   });
 
