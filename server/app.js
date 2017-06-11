@@ -4,7 +4,11 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
 var path = require('path');
+var request = require('request');
 var sqlite3 = require('sqlite3').verbose();
+const chalk = require('chalk');
+
+
 var db = new sqlite3.Database('./database.sqlite');
 var PORT = 3000;
 var rooms = {};
@@ -87,6 +91,24 @@ console.log('listening on port ' + PORT + '...');
 
 function onStremStop(key) {
   db.run("UPDATE rooms SET isLive = ? WHERE key = ?", [ 0, key ]);
+
+  var options = {
+    url: 'https://westeurope.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Categories&details=&language=en',
+    headers: {
+      'Content-Type': 'application/json',
+      "Ocp-Apim-Subscription-Key": "697cf14f38d1428db0691c4b649dd855"
+    },
+    method: 'POST',
+    formData: {
+      "url": "http://gardnet.de/thumbnailmcthumbface/ejte/img001.jpg"
+    }
+  };
+
+  request(options, function (error, response, body) {
+    console.log(chalk.red(error));
+    console.log(chalk.green(response));
+    console.log(chalk.blue(body));
+  });
 }
 
 function onStreamStart(room) {
