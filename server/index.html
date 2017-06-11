@@ -19,11 +19,6 @@
   ];
   var socket = io('http://10.43.101.83:3000');
   socket.on('room-created', function (data) {
-//    console.log(bubble_map);
-//    var oldvalue=bubble_map.bubbles();
-//    console.log(oldvalue);
-//    var newvalue = oldvalue;
-
     var event = {
       name: 'Unknown live event',
       radius: 10,
@@ -36,16 +31,7 @@
       longitude: 11.6028
 
     };
-//    newvalue.push(event);
-//    console.log(oldvalue);
-
-    allBubbles.push(event);
-
-    bubble_map.bubbles(allBubbles, {
-      popupTemplate: function (geo, data) {
-        return '<div class="hoverinfo"><b>' + data.name + '</b><br />in ' + data.country + ''
-      }
-    });
+    setUpMap();
 
     console.log('room-created');
     console.log(data);
@@ -135,29 +121,34 @@
         return(htmlString);
       });
     }
+
     var bubble_map = new Datamap({
-        element: document.getElementById("container1"),
-        geographyConfig: {
-            popupOnHover: false,
-            highlightOnHover: false
-        },
-        fills: {
-            defaultFill: '#CEDD39',
-            NORMAL: 'blue',
-            LIVE: 'red'
-        }
-    });
-    bubble_map.bubbles(allBubbles, {
-        popupTemplate: function (geo, data) {
-            return '<div class="hoverinfo"><b>' + data.name + '</b><br />in ' + data.country + ''
-        }
+      element: document.getElementById("container1"),
+      geographyConfig: {
+        popupOnHover: false,
+        highlightOnHover: false
+      },
+      fills: {
+        defaultFill: '#CEDD39',
+        NORMAL: 'blue',
+        LIVE: 'red'
+      }
     });
 
-    bubble_map.svg.selectAll('.datamaps-bubble').on('click', function (element) {
-        fillModal(element.id);
-        $('#myModal').modal('toggle');
-        console.log(element.name);
-    });
+    function setUpMap() {
+        bubble_map.bubbles(allBubbles, {
+            popupTemplate: function (geo, data) {
+                return '<div class="hoverinfo"><b>' + data.name + '</b><br />in ' + data.country + ''
+            }
+        });
+
+        bubble_map.svg.selectAll('.datamaps-bubble').on('click', function (element) {
+            fillModal(element.id);
+            $('#myModal').modal('toggle');
+            console.log(element.name);
+        });
+    }
+
     $('body').click(".videolist-entry",function() {
 
     });
