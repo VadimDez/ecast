@@ -46,6 +46,19 @@ io.on('connection', function(socket) {
     console.log('create room:', room);
     var roomKey = room.key;
     rooms[roomKey] = room;
+
+    db.run('INSERT INTO rooms(key, title, radius, country, fillKey, date, latitude, longitude, isLive) VALUES ($key, $title, $radius, $country, $fillKey, $date, $latitude, $longitude, $isLive)', {
+      $key: room.key,
+      $title: room.title,
+      $radius: room.radius,
+      $country: room.country,
+      $fillKey: room.fillKey,
+      $date: room.date,
+      $latitude: room.latitude,
+      $longitude: room.longitude,
+      $isLive: 1
+    });
+
     socket.roomKey = roomKey;
     socket.join(roomKey);
 
@@ -55,6 +68,7 @@ io.on('connection', function(socket) {
   socket.on('close_room', function(roomKey) {
     console.log('close room:', roomKey);
 
+    onStremStop(socket.roomKey);
     delete rooms[roomKey];
     io.sockets.emit('room-closed', { room: roomKey });
   });
@@ -62,6 +76,7 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     console.log('disconnect:', socket.roomKey);
     if (socket.roomKey) {
+      onStremStop(socket.roomKey);
       delete rooms[socket.roomKey];
       io.sockets.emit('room-closed', { room: socket.roomKey });
     }
@@ -79,3 +94,7 @@ io.on('connection', function(socket) {
 });
 
 console.log('listening on port ' + PORT + '...');
+
+function onStremStop(key) {
+  db.run("UPDATE rooms SET isLive = ? WHERE key = ?", [ 0, key ]);
+}
