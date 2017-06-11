@@ -1,3 +1,4 @@
+var express = require('express')
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -9,7 +10,7 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.use(app.static('public'));
+app.use(express.static('public'));
 
 app.get('/rooms', function(req, res) {
   var roomList = Object.keys(rooms).map(function(key) {
