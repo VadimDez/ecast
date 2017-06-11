@@ -106,7 +106,7 @@ function onStremStop(key) {
 
   request(options, function (error, response, body) {
     console.log(chalk.red(error));
-    console.log(chalk.green(response));
+    console.log(chalk.green(JSON.stringify(response)));
     console.log(chalk.blue(body));
   });
 }
