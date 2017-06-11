@@ -30,7 +30,7 @@ io.on('connection', function(socket) {
     socket.roomKey = roomKey
     socket.join(roomKey);
 
-    io.sockets.emit('room-created', { room: roomKey });
+    io.sockets.emit('room-created', room);
   });
 
   socket.on('close_room', function(roomKey) {
@@ -45,7 +45,7 @@ io.on('connection', function(socket) {
     if (socket.roomKey) {
       delete rooms[socket.roomKey]
     }
-  })
+  });
 
   socket.on('join_room', function(roomKey) {
     console.log('join room:', roomKey)
