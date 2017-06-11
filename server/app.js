@@ -125,7 +125,7 @@ function microsoftCognitiveAPI(key, number) {
       });
     }
 
-    microsoftCognitiveAPI(key, number++);
+    // microsoftCognitiveAPI(key, number++);
   });
 }
 
