@@ -3,6 +3,7 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
+var path = require('path');
 
 server.listen(3000);
 
