@@ -21,6 +21,8 @@ app.get('/', function (req, res) {
 app.get('/rooms', function(req, res) {
   db.all('SELECT * FROM rooms', function(err,rows){
     if (err) {
+      console.log('rooms error:');
+      console.log(err);
       return res.status(400).end();
     }
 
