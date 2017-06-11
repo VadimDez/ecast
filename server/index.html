@@ -73,7 +73,9 @@
                             aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Events in Beijing, CN</h4>
                 </div>
-                <div class="videoplayer"></div>
+                <div class="videoplayer">
+                    <video id="videoplayer" src=""></video>
+                </div>
                 <div class="modal-body">
 
                 </div>
@@ -103,6 +105,15 @@
       $('.videoplayer').slideUp(function() {
         $('.videoplayer').html(videoKey);
         $('.videoplayer').slideDown(500,"swing");
+
+        var videoElement = document.getElementById('videoplayer');
+        var flvPlayer = flvjs.createPlayer({
+          type: 'flv',
+          url: 'http://10.43.101.83/' + videoKey + '.flv'
+        });
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        flvPlayer.play();
       });
     }
     function fillModal(city) {
@@ -156,5 +167,6 @@
     });
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flv.js/1.3.0/flv.min.js"></script>
 <div class="newsfeed">ToDo: Implement xMinutes Feed for the hovered area</div>
 </body>
