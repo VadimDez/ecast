@@ -5,25 +5,27 @@
 <script>
   var socket = io('http://10.43.101.83:3000');
   socket.on('room-created', function (data) {
-    var oldvalue=bubble_map.bubbles();
-    console.log(oldvalue);
+    console.log(bubble_map);
+//    var oldvalue=bubble_map.bubbles();
+//    console.log(oldvalue);
 //    var newvalue = oldvalue;
 //
-//    newvalue.push({
-//        name: 'Unknown live event',
-//        radius: 10,
-//        id: data.key,
-//        country: 'Germany',
-//        significance: '',
-//        fillKey: 'LIVE',
-//        date: '2017-06-10',
-//        latitude: 48.1222,
-//        longitude: 11.6028
-//
-//    });
+    var event = {
+      name: 'Unknown live event',
+      radius: 10,
+      id: data.key,
+      country: 'Germany',
+      significance: '',
+      fillKey: 'LIVE',
+      date: '2017-06-10',
+      latitude: 48.1222,
+      longitude: 11.6028
+
+    };
+//    newvalue.push(event);
 //    console.log(oldvalue);
 
-    bubble_map.bubbles(oldvalue);
+    bubble_map.bubbles([event]);
     console.log('room-created');
     console.log(data);
   });
