@@ -37,3 +37,17 @@ sudo nano /usr/local/nginx/conf/nginx.conf
 node app.js
 
 ```
+
+### Start server
+
+Firstly install dependencies
+
+```
+npm install
+```
+
+start server
+
+```
+npm start
+```
