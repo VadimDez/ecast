@@ -6,11 +6,12 @@ var fs = require('fs');
 
 server.listen(3000);
 
+app.use('/static', express.static('public'))
+
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.use(express.static('public'));
 
 app.get('/rooms', function(req, res) {
   var roomList = Object.keys(rooms).map(function(key) {
