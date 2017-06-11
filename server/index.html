@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io('http://10.43.101.83:3000');
+  socket.on('room-created', function (data) {
+    console.log('room-created');
+    console.log(data);
+  });
+
+  socket.on('room-closed', function (data) {
+    console.log('room-closed');
+    console.log(data);
+  });
+</script>
+</body>
+</html>
