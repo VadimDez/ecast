@@ -1,0 +1,174 @@
+/*******************************
+* MODAL AS LEFT/RIGHT SIDEBAR
+* Add "left" or "right" in modal parent div, after class="modal".
+* Get free snippets on bootpen.com
+*******************************/
+.modal.left .modal-dialog,
+.modal.right .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 50%;
+    height: 100%;
+
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content,
+.modal.right .modal-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+    padding: 15px 0 80px;
+}
+
+/*Left*/
+.modal.left.fade .modal-dialog {
+    left: -320px;
+    -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+    transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.fade.in .modal-dialog {
+    left: 0;
+}
+
+/*Right*/
+.modal.right.fade .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+    border-radius: 0;
+    border: none;
+}
+
+.modal-header {
+    border-bottom-color: #EEEEEE;
+    background-color: #FAFAFA;
+}
+
+/* ----- v CAN BE DELETED v ----- */
+body {
+    background: #008EC2;
+    background: #4E4E4E;
+}
+
+.demo {
+
+}
+
+.btn-demo {
+    margin: 15px;
+    padding: 10px 15px;
+    border-radius: 0;
+    font-size: 16px;
+    background-color: #FFFFFF;
+}
+
+.btn-demo:focus {
+    outline: 0;
+}
+
+.demo-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    background-color: #212121;
+    text-align: center;
+}
+
+.demo-footer > a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff;
+}
+
+#myModal2 {
+    background: rgba(255, 255, 255, .5);
+}
+.headline{
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+    color: white;
+}
+#container1{
+    margin-left:auto;
+    margin-right:auto;
+
+}
+
+.videoplayer {
+  width: 100%;
+  background: #222222;
+  height: 500px;
+  padding: 0px;
+  margin: 0px;
+  padding: 0px;
+  display: none;
+}
+
+.videolist-entry {
+  width:100%;
+  border-bottom: 1px solid lightgrey;
+  height: 120px;
+  margin: 0px 0px;
+  padding: 10px;
+
+}
+.videolist-entry .thumbnail {
+  float:left;
+  width: 160px;
+  height: 100px;
+  margin-right: 10px;
+  background: red;
+
+
+}
+.videolist-entry .thumbnail span {
+  background: rgba(0,0,0,.5);
+  margin: 2px 0;
+  padding: 0px 2px;
+  color: white;
+  font-weight: bold;
+
+}
+
+
+.videolist-entry h3 {
+  margin: 0;
+  padding: 0;
+
+}
+
+.newsfeed {
+  background: rgba(0,0,0,.8) url("https://xminutes.net/wp-content/uploads/2016/10/xMinutes_logo-2.png") left center no-repeat;
+  height: 100px;
+  padding-left: 380px;
+  width:100%;
+  color: white;
+  font-size: 50px;
+  font-weight: 100;
+  vertical-align: middle;
+  line-height: 100px;
+
+}

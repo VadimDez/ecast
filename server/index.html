@@ -1,12 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<meta charset="utf-8">
 <body>
-
-<script src="/socket.io/socket.io.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io('http://10.43.101.83:3000');
   socket.on('room-created', function (data) {
@@ -19,5 +14,121 @@
     console.log(data);
   });
 </script>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<!-- I recommend you host this file on your own, since this will change without warning -->
+<script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<link href="styles.css" rel="stylesheet">
+
+
+<div class="container demo">
+
+
+
+    <!-- Modal -->
+    <div class="modal left fade beijing" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Events in Beijing, CN</h4>
+
+                </div>
+                <div class="videoplayer"></div>
+                <div class="modal-body">
+
+                </div>
+
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+
+    <h2 class="headline">Current Events</h2>
+
+
+</div><!-- container -->
+
+<div id="container1" style="position: relative; width: 80%; min-height: 800px;"></div>
+
+<style>
+    .map {
+        position: relative;
+        margin: 0 auto;
+        width: 750px;
+        height: 500px;
+    }
+
+</style>
+<script>
+    function fillModal(city) {
+      var htmlString =  '<div class="videolist-entry"><div class="thumbnail"><span>0:20</span></div><span class="videolist-description">RICE, DRAMA</span><br />Video in <span class="videolist-city">Beijing, CN</span><div class="videolist-buttons"><a href="#" class="okay"></a><a href="#" class="block"></a></div></div>';
+      $('.modal-body').html(function(e) {
+        return(htmlString);
+      });
+    }
+    var bubble_map = new Datamap({
+        element: document.getElementById("container1"),
+        geographyConfig: {
+            popupOnHover: false,
+            highlightOnHover: false
+        },
+        fills: {
+            defaultFill: '#CEDD39',
+            NORMAL: 'blue',
+            LIVE: 'red'
+        }
+    });
+    bubble_map.bubbles([
+        {
+            name: 'Bag of rice fell over',
+            radius: 25,
+            id: 0,
+            country: 'China',
+            significance: '',
+            fillKey: 'NORMAL',
+            date: '2017-06-10',
+            latitude: 39.9375346,
+            longitude: 115.837023
+
+        }, {
+            name: 'Unknown live event',
+            radius: 10,
+            id: 1,
+            country: 'Germany',
+            fillKey: 'LIVE',
+            significance: '',
+            date: '1961-10-31',
+            latitude: 48.1222,
+            longitude: 11.6028
+        }
+    ], {
+        popupTemplate: function (geo, data) {
+            return '<div class="hoverinfo"><b>' + data.name + '</b><br />in ' + data.country + ''
+        }
+    });
+
+    bubble_map.svg.selectAll('.datamaps-bubble').on('click', function (element) {
+        fillModal(element.id);
+        $('#myModal').modal('toggle');
+        console.log(element.name);
+    });
+    $('.videolist-entry').click(function() {
+      $('.videoplayer').slideUp(function() {
+        $('.videoplayer').slideDown(500,"swing");
+      });
+    });
+
+</script>
+<div class="newsfeed">NEWS: Die sind so neu, wir sollten Kindergeld dafür verlangen</div>
 </body>
-</html>
