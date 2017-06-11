@@ -9,7 +9,7 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.use(express.static('public'));
+app.use(app.static('public'));
 
 app.get('/rooms', function(req, res) {
   var roomList = Object.keys(rooms).map(function(key) {
