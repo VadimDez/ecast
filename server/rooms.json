@@ -1,0 +1,24 @@
+[
+        {
+            name: 'Bag of rice fell over',
+            radius: 25,
+            id: 0,
+            country: 'China',
+            significance: '',
+            fillKey: 'NORMAL',
+            date: '2017-06-10',
+            latitude: 39.9375346,
+            longitude: 115.837023
+
+        }, {
+            name: 'Unknown live event',
+            radius: 10,
+            id: 1,
+            country: 'Germany',
+            fillKey: 'LIVE',
+            significance: '',
+            date: '1961-10-31',
+            latitude: 48.1222,
+            longitude: 11.6028
+        }
+    ]
