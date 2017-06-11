@@ -99,9 +99,7 @@ function onStremStop(key) {
       "Ocp-Apim-Subscription-Key": "697cf14f38d1428db0691c4b649dd855"
     },
     method: 'POST',
-    formData: {
-      "url": "http://gardnet.de/thumbnailmcthumbface/ejte/img001.jpg"
-    }
+    body: '{"url": "http://gardnet.de/thumbnailmcthumbface/ejte/img001.jpg"}'
   };
 
   request(options, function (error, response, body) {
