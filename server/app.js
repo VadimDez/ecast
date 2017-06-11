@@ -1,27 +1,39 @@
-var express = require('express')
+var express = require('express');
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require('fs');
 var path = require('path');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('database.sqlite');
+var PORT = 3000;
+var rooms = {};
 
-server.listen(3000);
 
-app.use('/public', express.static(path.join(__dirname, 'public')))
+server.listen(PORT);
+
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-
 app.get('/rooms', function(req, res) {
-  var roomList = Object.keys(rooms).map(function(key) {
-    return rooms[key]
-  })
-  res.send(roomList)
-});
+  db.all('SELECT * FROM rooms', function(err,rows){
+    if (err) {
+      return res.status(400).end();
+    }
+    
+    res.send(rows);
+  });
 
-var rooms = {}
+  // var roomList = Object.keys(rooms).map(function(key) {
+  //   // return rooms[key];
+  //   return rooms;
+  // });
+  //
+  // res.send(roomList);
+});
 
 io.on('connection', function(socket) {
 
@@ -29,10 +41,10 @@ io.on('connection', function(socket) {
     if (!room.key) {
       return
     }
-    console.log('create room:', room)
-    var roomKey = room.key
-    rooms[roomKey] = room
-    socket.roomKey = roomKey
+    console.log('create room:', room);
+    var roomKey = room.key;
+    rooms[roomKey] = room;
+    socket.roomKey = roomKey;
     socket.join(roomKey);
 
     io.sockets.emit('room-created', room);
@@ -59,9 +71,9 @@ io.on('connection', function(socket) {
   });
 
   socket.on('comment', function(data) {
-    console.log('comment:', data)
-    io.to(data.roomKey).emit('comment', data)
+    console.log('comment:', data);
+    io.to(data.roomKey).emit('comment', data);
   });
 });
 
-console.log('listening on port 3000...')
+console.log('listening on port ' + PORT + '...');
