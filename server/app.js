@@ -124,7 +124,7 @@ function microsoftCognitiveAPI(key, number) {
         saveTags(key, tag);
       });
     }
-    
+
     microsoftCognitiveAPI(key, number++);
   });
 }
