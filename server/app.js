@@ -91,22 +91,46 @@ console.log('listening on port ' + PORT + '...');
 
 function onStremStop(key) {
   db.run("UPDATE rooms SET isLive = ? WHERE key = ?", [ 0, key ]);
+  microsoftCognitiveAPI(key, 1);
+}
+
+function microsoftCognitiveAPI(key, number) {
+
+  if (!fs.existsSync('/home/administrator/ecast/Live/recordings/' + key + '/img' + zerofy(number) + '.jpg')) {
+    return;
+  }
 
   var options = {
-    url: 'https://westeurope.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Categories&details=&language=en',
+    url: 'https://westeurope.api.cognitive.microsoft.com/vision/v1.0/analyze?visualFeatures=Tags&details=&language=en',
     headers: {
       'Content-Type': 'application/json',
       "Ocp-Apim-Subscription-Key": "697cf14f38d1428db0691c4b649dd855"
     },
     method: 'POST',
-    body: '{"url": "http://gardnet.de/thumbnailmcthumbface/ejte/img001.jpg"}'
+    body: '{"url": "http://gardnet.de/thumbnailmcthumbface/' + key + '/img' + zerofy(number) + '.jpg"}'
   };
 
   request(options, function (error, response, body) {
-    console.log(chalk.red(error));
+
+    if (error) {
+      console.log(chalk.red(error));
+      return;
+    }
     console.log(chalk.green(JSON.stringify(response)));
     console.log(chalk.blue(body));
+
+    if (body && body.tags) {
+      body.tags.forEach(function(tag) {
+        saveTags(key, tag);
+      });
+    }
+    
+    microsoftCognitiveAPI(key, number++);
   });
+}
+
+function zerofy(number) {
+  return ('00' + number).substr(-3);
 }
 
 function onStreamStart(room) {
@@ -120,5 +144,13 @@ function onStreamStart(room) {
     $latitude: room.latitude,
     $longitude: room.longitude,
     $isLive: 1
+  });
+}
+
+function saveTags(key, tag) {
+  db.run('INSERT INTO tags(id, key, name, score) VALUES ($key, $name, $score)', {
+    $key: key,
+    $name: tag.name,
+    $score: tag.score
   });
 }
