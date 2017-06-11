@@ -5,7 +5,7 @@ var io = require('socket.io')(server);
 var fs = require('fs');
 var path = require('path');
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('database.sqlite');
+var db = new sqlite3.Database('./database.sqlite');
 var PORT = 3000;
 var rooms = {};
 
@@ -23,7 +23,7 @@ app.get('/rooms', function(req, res) {
     if (err) {
       return res.status(400).end();
     }
-    
+
     res.send(rows);
   });
 
