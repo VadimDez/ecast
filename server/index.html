@@ -3,13 +3,27 @@
 <body>
 <script src="http://10.43.101.83:3000/socket.io/socket.io.js"></script>
 <script>
+  var allBubbles = [
+    {
+      name: 'Bag of rice fell over',
+      radius: 25,
+      id: 0,
+      country: 'China',
+      significance: '',
+      fillKey: 'NORMAL',
+      date: '2017-06-10',
+      latitude: 39.9375346,
+      longitude: 115.837023
+
+    }
+  ];
   var socket = io('http://10.43.101.83:3000');
   socket.on('room-created', function (data) {
-    console.log(bubble_map);
+//    console.log(bubble_map);
 //    var oldvalue=bubble_map.bubbles();
 //    console.log(oldvalue);
 //    var newvalue = oldvalue;
-//
+
     var event = {
       name: 'Unknown live event',
       radius: 10,
@@ -25,7 +39,14 @@
 //    newvalue.push(event);
 //    console.log(oldvalue);
 
-    bubble_map.bubbles([event]);
+    allBubbles.push(event);
+
+    bubble_map.bubbles(allBubbles, {
+      popupTemplate: function (geo, data) {
+        return '<div class="hoverinfo"><b>' + data.name + '</b><br />in ' + data.country + ''
+      }
+    });
+
     console.log('room-created');
     console.log(data);
   });
@@ -126,20 +147,7 @@
             LIVE: 'red'
         }
     });
-    bubble_map.bubbles([
-        {
-            name: 'Bag of rice fell over',
-            radius: 25,
-            id: 0,
-            country: 'China',
-            significance: '',
-            fillKey: 'NORMAL',
-            date: '2017-06-10',
-            latitude: 39.9375346,
-            longitude: 115.837023
-
-        }
-    ], {
+    bubble_map.bubbles(allBubbles, {
         popupTemplate: function (geo, data) {
             return '<div class="hoverinfo"><b>' + data.name + '</b><br />in ' + data.country + ''
         }
