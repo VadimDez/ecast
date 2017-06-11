@@ -1,0 +1,30 @@
+PODS:
+  - IHKeyboardAvoiding (2.6)
+  - LFLiveKit (2.6)
+  - R.swift (3.3.0):
+    - R.swift.Library (~> 3.0.2)
+  - R.swift.Library (3.0.2)
+  - Socket.IO-Client-Swift (10.0.0)
+  - SVProgressHUD (2.1.2)
+  - TextAttributes (1.0)
+
+DEPENDENCIES:
+  - IHKeyboardAvoiding (~> 2.6)
+  - LFLiveKit
+  - R.swift
+  - Socket.IO-Client-Swift (~> 10.0)
+  - SVProgressHUD
+  - TextAttributes
+
+SPEC CHECKSUMS:
+  IHKeyboardAvoiding: d2541ee56dad83e160cd9aed0468c52247af6f49
+  LFLiveKit: 2219563721f8aa0f188effc3395a06e2d53b23f2
+  R.swift: bde9704d50ff36820f49e266bc88ef545e1e9b36
+  R.swift.Library: fbdec16c9802ad104fc1ba53415dc190e6ec5c73
+  Socket.IO-Client-Swift: 9c5b4e5e76e30e1b9a1804c40e11dad0a002b1a4
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  TextAttributes: 45b2713a1d174c377d320b51129c304eac381638
+
+PODFILE CHECKSUM: dee135a4f270bed9c65ed0359bbf2a21664e6b3e
+
+COCOAPODS: 1.1.1
