@@ -39,6 +39,17 @@
   });
 
   socket.on('room-closed', function (data) {
+    var found = false;
+    var i = 0;
+    while (!found && i < allBubbles.length) {
+      if (allBubbles[i].id === data.key) {
+        allBubbles[i].fillKey = 'NORMAL';
+        found = true;
+      }
+      i++;
+    }
+    setUpMap();
+
     console.log('room-closed');
     console.log(data);
   });
@@ -103,13 +114,13 @@
 <script>
     function loadVideo(videoKey) {
       $('.videoplayer').slideUp(function() {
-        $('.videoplayer').html(videoKey);
+//        $('.videoplayer').html(videoKey);
         $('.videoplayer').slideDown(500,"swing");
 
         var videoElement = document.getElementById('videoplayer');
         var flvPlayer = flvjs.createPlayer({
           type: 'flv',
-          url: 'http://10.43.101.83/' + videoKey + '.flv'
+          url: 'http://10.43.101.83/recording/' + videoKey + '.flv'
         });
         flvPlayer.attachMediaElement(videoElement);
         flvPlayer.load();
@@ -117,8 +128,9 @@
       });
     }
     function fillModal(city) {
+
       $.getJSON( "rooms.json", function( data ) {
-           var items = [];
+        var items = [];
         $.each( data, function( key, val ) {
           items.push( "<li id='" + key + "'>" + val + "</li>" );
         });
@@ -128,7 +140,7 @@
           html: items.join( "" )
         }).appendTo( "body" );
       });
-       htmlString =  '<div onclick="loadVideo(\'keykey\');" class="videolist-entry"><div class="thumbnail"><span>0:20</span></div><span class="videolist-description">RICE, DRAMA</span><br />Video in <span class="videolist-city">Beijing, CN</span><div class="videolist-buttons"><a href="#" class="okay"></a><a href="#" class="block"></a></div></div>';
+       htmlString =  '<div onclick="loadVideo(\'2017\');" class="videolist-entry"><div class="thumbnail"><span>0:20</span></div><span class="videolist-description">RICE, DRAMA</span><br />Video in <span class="videolist-city">Beijing, CN</span><div class="videolist-buttons"><a href="#" class="okay"></a><a href="#" class="block"></a></div></div>';
       $('.modal-body').html(function(e) {
         return(htmlString);
       });
