@@ -1,4 +1,6 @@
-Hi. This is project eCast.
+# eCast
+
+> [#FutureLab](http://medialab-bayern.de/futurelab/) hackathon project
 
 We provide emergency broadcasting aimed towards news agencies.
 
