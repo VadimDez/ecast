@@ -6,6 +6,7 @@ We provide emergency broadcasting aimed towards news agencies.
 
 This is a hackathon project and will never be finished.
 
+<img src="https://user-images.githubusercontent.com/3748453/28543451-1de55e2a-70c0-11e7-8e9f-60d2cd3f48f5.PNG" width="320">
 
 ## Installation
 
